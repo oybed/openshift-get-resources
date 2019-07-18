@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  gather_facts: false
+  roles:
+    - openshift-get-resources
+  tasks:
+    - debug:
+        var: openshift_get_resources

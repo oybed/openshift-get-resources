@@ -1,0 +1,32 @@
+---
+
+- name: Get OpenShift Resource based on input parameters
+  k8s_facts:
+    api_key: "{{ openshift_get_resources.api_key | default(omit) }}"
+    api_version: "{{ openshift_get_resources.api_version | default(omit) }}"
+    ca_cert: "{{ openshift_get_resources.ca_cert | default(omit) }}"
+    client_cert: "{{ openshift_get_resources.client_cert | default(omit) }}"
+    client_key: "{{ openshift_get_resources.client_key | default(omit) }}"
+    context: "{{ openshift_get_resources.context | default(omit) }}"
+    field_selectors: "{{ openshift_get_resources.field_selectors | default(omit) }}"
+    host: "{{ openshift_get_resources.host | default(omit) }}"
+    kind: "{{ openshift_get_resources.kind }}"
+    kubeconfig: "{{ openshift_get_resources.kubeconfig | default(omit) }}"
+    label_selectors: "{{ openshift_get_resources.label_selectors | default(omit) }}"
+    name: "{{ openshift_get_resources.name | default(omit) }}"
+    namespace: "{{ openshift_get_resources.namespace | default(omit) }}"
+    password: "{{ openshift_get_resources.password | default(omit) }}"
+    username: "{{ openshift_get_resources.username | default(omit) }}"
+    validate_certs: "{{ openshift_get_resources.validate_certs | default(omit) }}"
+  register: k8s_facts_output
+
+- name: Filter output (if requested)
+  set_fact:
+    k8s_facts_output: "{{ k8s_facts_output | json_query(openshift_get_resources.json_query) }}"
+  when: 
+    - openshift_get_resources.json_query is defined 
+    - openshift_get_resources.json_query != ''
+ 
+- name: Add output to the input dict
+  set_fact:
+     openshift_get_resources: "{{ openshift_get_resources | combine({'output': k8s_facts_output}) }}"

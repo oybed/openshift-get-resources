@@ -1,0 +1,9 @@
+---
+
+openshift_get_resources:
+  kind: pod
+  namespace: default
+  label_selectors:
+    - router = router
+  json_query: 'resources[*].metadata.annotations[]."openshift.io/scc"'
+
