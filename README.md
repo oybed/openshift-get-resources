@@ -12,7 +12,7 @@ Same as the [k8s_facts](https://docs.ansible.com/ansible/latest/modules/k8s_fact
 Role Variables
 --------------
 
-*Input*
+**Input**
 
 | Variable Name | Description | Required | Other Info |
 | ------------- | ----------- | -------- | ---------- |
@@ -34,7 +34,8 @@ Role Variables
 | openshift_get_resources.field_selectors | List of field selectors used to filter output | No | |
 | openshift_get_resources.json_query | json_query used to filter output | No | This filter is built upon jmespath, and you can use the same syntax. For examples, see [jmespath examples](http://jmespath.org/examples.html). |
 
-*Output*
+**Output**
+
 | Variable Name | Description | Other Info |
 | ------------- | ----------- | ---------- |
 | openshift_get_resources.output | Where the output from the role is stored. | *Tip:* Use the json_query to limit the output to exact value. |
